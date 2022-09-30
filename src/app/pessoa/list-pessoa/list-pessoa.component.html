@@ -1,0 +1,44 @@
+<div class="list-group w-auto">
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>CPF</th>
+        <th>Nacionalidade</th>
+        <th>CEP</th>
+        <th>Estado</th>
+        <th>Cidade</th>
+        <th>Logradouro</th>
+        <th>Email</th>
+        <th>Telefone</th>
+        <th class="text-center">
+          <a href="#" title="Novo" alt="Novo" [routerLink]="['/pessoas/new']">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </a>
+        </th>
+      </tr>
+      <tr *ngFor="let pessoa of pessoas">
+        <td>{{ pessoa.nome }}</td>
+        <td>{{ pessoa.sobrenome }}</td>
+        <td>{{ pessoa.cpf! | mask: '000.000.000-00' }}</td>
+        <td>{{ pessoa.nacionalidade }}</td>
+        <td>{{ pessoa.cep! | mask: '00000-000'}}</td>
+        <td>{{ pessoa.estado }}</td>
+        <td>{{ pessoa.cidade }}</td>
+        <td>{{ pessoa.logradouro }}</td>
+        <td>{{ pessoa.email }}</td>
+        <td>{{ pessoa.telefone! | mask: '(00) 00000-0000'}}</td>
+        <td class="text-center">
+          <a href="#" title="Editar" alt="Editar" [routerLink]="['/pessoas/edit', pessoa.id]" style="margin: 0.5rem">
+            <i class="fa fa-edit" aria-hidden="true"></i>
+          </a>
+          <a href="#" title="Remover" alt="Remover" (click)="delete($event, pessoa)">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="pessoas.length === 0">Nenhuma pessoa cadastrada.</p>
+</div>

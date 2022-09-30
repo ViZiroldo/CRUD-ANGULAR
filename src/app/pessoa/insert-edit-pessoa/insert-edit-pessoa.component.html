@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="col-md-12 col-lg-12">
+
+    <br class="my-4">
+
+    <h4 *ngIf="isNewPessoa">Novo Cadastro</h4>
+    <h4 *ngIf="!isNewPessoa">Editar Cadastro</h4>
+
+  <form #formPessoa="ngForm">
+
+    <div class="row g-6">
+
+      <div class="col-6">
+        <label for="nome" class="m">Nome:</label>
+        <input type="text" class="form-control" id="nome" name="nome" minlength="4" placeholder="Ex: João" required [(ngModel)]="pessoa.nome" #nome="ngModel">
+        <div class="alert alert-danger" *ngIf="nome.errors && (nome.dirty || nome.touched)">
+          <div>Campo obrigatório, minimo de 4 caracteres.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="sobrenome" class="m">Sobrenome:</label>
+        <input type="text" class="form-control" id="sobrenome" name="sobrenome" minlength="4" placeholder="Ex: Oliveira Santos" required [(ngModel)]="pessoa.sobrenome" #sobrenome="ngModel">
+        <div class="alert alert-danger" *ngIf="sobrenome.errors && (sobrenome.dirty || sobrenome.touched)">
+          <div>Campo obrigatório, minimo de 4 caracteres.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="cpf" class="m">CPF:</label>
+        <input type="text" class="form-control" id="cpf" name="cpf" maxlength="14" placeholder="Ex: 123.456.789-10" mask="000.000.000-00" required [(ngModel)]="pessoa.cpf" #cpf="ngModel">
+        <div class="alert alert-danger" *ngIf="cpf.errors && (cpf.dirty || cpf.touched)">
+          <div>Campo obrigatório, máximo de 11 caracteres.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="nacionalidade" class="m">Nacionalidade:</label>
+        <input type="text" class="form-control" id="nacionalidade" name="nacionalidade"  placeholder="Ex: Brasileiro" required [(ngModel)]="pessoa.nacionalidade" #nacionalidade="ngModel">
+        <div class="alert alert-danger" *ngIf="nacionalidade.errors && (nacionalidade.dirty || nacionalidade.touched)">
+          <div>Campo obrigatório.</div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <label for="telefone" class="m">Telefone:</label>
+        <input type="text" class="form-control" id="telefone" name="telefone" maxlength="15" placeholder="Ex: (11) 11111-1111" mask="(00) 00000-0000" required [(ngModel)]="pessoa.telefone" #telefone="ngModel">
+        <div class="alert alert-danger" *ngIf="telefone.errors && (telefone.dirty || telefone.touched)">
+          <div>Campo obrigatório, máximo de 11 caracteres.</div>
+        </div>
+      </div>
+
+      <div class="col-8">
+        <label for="email" class="m">Email:</label>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Ex: email@exemplo.com" required [(ngModel)]="pessoa.email" #email="ngModel" email="true">
+        <div class="alert alert-danger" *ngIf="email.errors && (email.dirty || email.touched)">
+          <div>E-mail invalido.</div>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <label for="cep" class="m">CEP:</label>
+        <input type="text" class="form-control" id="cep" name="cep" maxlength="9" required placeholder="Ex: 12345-678" mask="00000-000"[(ngModel)]="pessoa.cep" #cep="ngModel" (blur)="consultaCEP()">
+        <div class="alert alert-danger" *ngIf="cep.errors && (cep.dirty || cep.touched)">
+          <div>Campo obrigatório.</div>
+        </div>
+      </div>
+
+      <div class="col-7">
+        <label for="logradouro" class="m">Logradouro:</label>
+        <input type="text" class="form-control" id="logradouro" name="logradouro" placeholder="Ex: Rua cajuru" required [(ngModel)]="pessoa.logradouro" #logradouro="ngModel" disabled="true">
+        <div class="alert alert-danger" *ngIf="logradouro.errors && (logradouro.dirty || logradouro.touched)">
+          <div>Campo obrigatório.</div>
+        </div>
+      </div>
+
+      <div class="col-2">
+        <label for="numero" class="m">Numero:</label>
+        <input type="text" class="form-control" id="logradouro" name="numero" placeholder="Ex: 123" required [(ngModel)]="pessoa.numero" #numero="ngModel">
+        <div class="alert alert-danger" *ngIf="numero.errors && (numero.dirty || numero.touched)">
+          <div>Campo obrigatório.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="cidade" class="m">Cidade:</label>
+        <input type="text" class="form-control" id="cidade" name="cidade" required placeholder="Ex: São Paulo" [(ngModel)]="pessoa.cidade" #cidade="ngModel" disabled="true">
+        <div class="alert alert-danger" *ngIf="cidade.errors && (cidade.dirty || cidade.touched)">
+          <div>Campo obrigatório.</div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="estado" class="m">Estado:</label>
+          <input type="text" class="form-control" id="estado" name="estado" placeholder="Ex: São Paulo" required [(ngModel)]="pessoa.estado" #estado="ngModel" disabled="true">
+          <div class="alert alert-danger" *ngIf="estado.errors && (estado.dirty || estado.touched)">
+            <div>Campo obrigatório.</div>
+          </div>
+      </div>
+
+    </div>
+
+    <br class="my-4">
+
+    <div class="form-group">
+      <a class="btn btn-secondary" [routerLink]="['/pessoas']">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+      </a>
+      <button type="button" class="btn btn-primary m" (click)="save()" [disabled]="!formPessoa.form.valid">
+        <i *ngIf="!isLoading"  aria-hidden="true"></i>
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1" ></span> Salvar
+      </button>
+    </div>
+  </form>
+</div>
+</div>
