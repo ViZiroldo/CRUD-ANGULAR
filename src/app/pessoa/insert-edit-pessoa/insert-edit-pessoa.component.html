@@ -76,7 +76,7 @@
 
       <div class="col-2">
         <label for="numero" class="m">Numero:</label>
-        <input type="text" class="form-control" id="logradouro" name="numero" placeholder="Ex: 123" required [(ngModel)]="pessoa.numero" #numero="ngModel">
+        <input type="number" class="form-control" id="logradouro" name="numero" placeholder="Ex: 123" required [(ngModel)]="pessoa.numero" #numero="ngModel">
         <div class="alert alert-danger" *ngIf="numero.errors && (numero.dirty || numero.touched)">
           <div>Campo obrigatório.</div>
         </div>
