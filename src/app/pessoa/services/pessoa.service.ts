@@ -17,7 +17,7 @@ export class PessoaService {
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) {}
 
   getAll(): Observable<Pessoa[]> {
     const apiUrl = `${environment.apiUrl}/api/Pessoa/ObterTodos`;
